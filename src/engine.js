@@ -39,6 +39,8 @@ class Engine {
         this.setupMenuHandlers();
         this.init();
         this.animate();
+
+        console.log("Engine Loaded with " + Object.keys(CharactersRegistry).length + " characters.");
     }
 
     renderCharGrid() {
@@ -52,7 +54,7 @@ class Engine {
             card.className = 'char-card';
             card.style.setProperty('--char-color', char.color);
             card.innerHTML = `
-                <div class="avatar-block"></div>
+                <div class="avatar-block" style="background: ${char.color}"></div>
                 <span>${char.name}</span>
             `;
 
@@ -96,6 +98,7 @@ class Engine {
         document.getElementById('open-chars').addEventListener('click', () => {
             document.getElementById('main-menu').classList.add('hidden');
             document.getElementById('char-selection').classList.remove('hidden');
+            this.renderCharGrid(); // Force re-render when opening
         });
 
         document.getElementById('confirm-selection').addEventListener('click', () => {
@@ -113,7 +116,7 @@ class Engine {
         const char1Data = CharactersRegistry[this.selection.p1 || 'gojo'];
         const char2Data = CharactersRegistry[this.selection.p2 || 'sukuna'];
 
-        this.timeRemaining = 99; // Reset timer
+        this.timeRemaining = 99;
 
         this.p1 = new Player({
             position: { x: 200, y: 0 },
@@ -135,7 +138,7 @@ class Engine {
         document.getElementById('char-selection').classList.add('hidden');
 
         this.updateHUDNames();
-        this.updateHUD(); // Reset bars
+        this.updateHUD();
         this.isStarted = true;
         this.startTimer();
     }
@@ -177,13 +180,11 @@ class Engine {
 
             if (!this.isStarted) return;
 
-            // NOVOS CONTROLES P1 (1, 2, 3, 4)
             if (event.key === '1') this.p1.attack('light');
             if (event.key === '2') this.p1.attack('heavy');
             if (event.key === '3') this.p1.attack('special');
             if (event.key === '4') this.p1.attack('ultimate');
 
-            // NOVOS CONTROLES P2 (U, I, O, P)
             const key = event.key.toLowerCase();
             if (key === 'u') this.p2.attack('light');
             if (key === 'i') this.p2.attack('heavy');
@@ -197,7 +198,6 @@ class Engine {
     }
 
     drawBackground() {
-        // Céu Noturno Jujutsu (HD Gradient)
         const grad = this.ctx.createLinearGradient(0, 0, 0, this.canvas.height);
         grad.addColorStop(0, '#000000');
         grad.addColorStop(0.4, '#0a0a20');
@@ -205,7 +205,6 @@ class Engine {
         this.ctx.fillStyle = grad;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Luas / Brilho de energia no fundo
         this.ctx.fillStyle = 'rgba(100, 100, 255, 0.05)';
         this.ctx.beginPath();
         this.ctx.arc(1000, 150, 100, 0, Math.PI * 2);
@@ -215,7 +214,6 @@ class Engine {
             this.ctx.drawImage(this.background, 0, 0, this.canvas.width, this.canvas.height);
         }
 
-        // Chão de Pedra Refletiva
         this.ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
         this.ctx.fillRect(0, 720 - 50, this.canvas.width, 50);
         this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
@@ -242,7 +240,6 @@ class Engine {
 
         if (this.p1 && this.p2) {
             if (this.isStarted) {
-                // Ganho passivo lento de energia
                 this.p1.energy = Math.min(100, this.p1.energy + 0.03);
                 this.p2.energy = Math.min(100, this.p2.energy + 0.03);
                 this.updateHUD();
@@ -252,19 +249,16 @@ class Engine {
             this.p2.update(this.ctx);
 
             if (this.isStarted) {
-                // Movimentação P1 (W,A,D)
                 this.p1.velocity.x = 0;
                 if (this.keys.a.pressed) this.p1.velocity.x = -8;
                 else if (this.keys.d.pressed) this.p1.velocity.x = 8;
                 if (this.keys.w.pressed && this.p1.onGround) this.p1.velocity.y = -20;
 
-                // Movimentação P2 (Setas)
                 this.p2.velocity.x = 0;
                 if (this.keys['ArrowLeft'].pressed) this.p2.velocity.x = -8;
                 else if (this.keys['ArrowRight'].pressed) this.p2.velocity.x = 8;
                 if (this.keys['ArrowUp'].pressed && this.p2.onGround) this.p2.velocity.y = -20;
 
-                // Colisão P1 -> P2
                 if (this.p1.isAttacking && this.rectangularCollision(this.p1, this.p2)) {
                     const dmg = CombatSystem.calculateDamage(this.p1, this.p2, this.p1.lastAttackType);
                     if (dmg > 0) {
@@ -274,7 +268,6 @@ class Engine {
                     this.updateHUD();
                 }
 
-                // Colisão P2 -> P1
                 if (this.p2.isAttacking && this.rectangularCollision(this.p2, this.p1)) {
                     const dmg = CombatSystem.calculateDamage(this.p2, this.p1, this.p2.lastAttackType);
                     if (dmg > 0) {
