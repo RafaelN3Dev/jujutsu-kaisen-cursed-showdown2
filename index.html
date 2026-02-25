@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jujutsu Kaisen: Cursed Showdown</title>
+    <meta name="description"
+        content="Um jogo de luta 2D épico baseado no universo de Jujutsu Kaisen. Enfrente maldições e domine técnicas amaldiçoadas.">
+    <link rel="stylesheet" href="src/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Overlay de Interface -->
+        <div id="ui-layer">
+            <div class="hud">
+                <div class="player-stats p1">
+                    <div class="name">GOJO SATORU</div>
+                    <div class="health-bar">
+                        <div id="p1-health" class="fill"></div>
+                    </div>
+                    <div class="energy-bar">
+                        <div id="p1-energy" class="fill"></div>
+                    </div>
+                </div>
+
+                <div class="timer">99</div>
+
+                <div class="player-stats p2">
+                    <div class="name">RYOMEN SUKUNA</div>
+                    <div class="health-bar">
+                        <div id="p2-health" class="fill"></div>
+                    </div>
+                    <div class="energy-bar">
+                        <div id="p2-energy" class="fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu Inicial -->
+            <div id="main-menu" class="overlay">
+                <h1 class="game-title">JUJUTSU KAISEN<br><span>CURSED SHOWDOWN</span></h1>
+                <div class="menu-options">
+                    <button id="start-game" class="btn-primary">INICIAR DUELO</button>
+                    <button id="open-chars" class="btn-secondary">PERSONAGENS</button>
+                </div>
+            </div>
+
+            <!-- Seleção de Personagem -->
+            <div id="char-selection" class="overlay hidden">
+                <h2 class="section-title">SELECIONE SEU LUTADOR</h2>
+                <div class="char-grid" id="char-grid">
+                    <!-- Gerado via JS -->
+                </div>
+                <div class="selection-footer">
+                    <p id="selection-status">JOGADOR 1: Escolha seu personagem</p>
+                    <button id="confirm-selection" class="btn-primary" disabled>CONFIRMAR</button>
+                </div>
+            </div>
+
+            <!-- Especial / Cutscene Overlay -->
+            <div id="special-overlay" class="hidden">
+                <div class="special-name">EXPANSÃO DE DOMÍNIO</div>
+            </div>
+
+            <!-- Game Over Screen -->
+            <div id="game-over" class="overlay hidden">
+                <h1 id="winner-text">VITORIOSO!</h1>
+                <p id="game-over-reason">KO</p>
+                <div class="menu-options">
+                    <button id="restart-game" class="btn-primary">JOGAR NOVAMENTE</button>
+                    <button onclick="location.reload()" class="btn-secondary">MENU PRINCIPAL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Canvas do Jogo -->
+        <canvas id="game-canvas"></canvas>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="src/engine.js"></script>
+</body>
+
+</html>
