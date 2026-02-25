@@ -96,5 +96,11 @@ export const CharactersRegistry = {
         hp: 1000,
         domain: "DEADLY SENTENCING",
         moves: { special: "JUDGEMAN", ultimate: "EXECUTIONER SWORD" }
+    },
+    junpei: {
+        name: "Junpei Yoshino",
+        color: "#512e5f",
+        hp: 900,
+        moves: { special: "MOON DREGS", ultimate: "POISON STING" }
     }
 };
