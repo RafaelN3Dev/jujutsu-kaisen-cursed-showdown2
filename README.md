@@ -4,22 +4,23 @@ Um jogo de luta 2D inspirado no universo de Jujutsu Kaisen, desenvolvido para ro
 
 ## 🕹️ Como Jogar
 
-### Jogador 1 (Gojo)
+### Jogador 1 (Gojo/Outros)
 - **A / D**: Mover para esquerda/direita
 - **W**: Pular
-- **J**: Soco Fraco
-- **K**: Soco Forte
+- **1 / 2**: Ataque Fraco / Forte
+- **3 / 4**: Especial / Ultimate
 
-### Jogador 2 (Sukuna)
+### Jogador 2 (Sukuna/Outros)
 - **Setas**: Movimentação
 - **Seta Cima**: Pular
-- **1 (Numpad ou Teclado)**: Soco Fraco
-- **2 (Numpad ou Teclado)**: Soco Forte
+- **U / I**: Ataque Fraco / Forte
+- **O / P**: Especial / Ultimate
 
 ## 🛠️ Tecnologias
 - HTML5 Canvas
 - JavaScript (Vanilla ES6)
 - CSS3 (Custom Design System)
+- Toji Fushiguro Update (V3.0)
 
 ## 🚀 Deploy no GitHub Pages
 1. Faça o commit de todos os arquivos usando o **GitHub Desktop**.

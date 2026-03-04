@@ -79,14 +79,14 @@ export const CharactersRegistry = {
     kusakabe: {
         name: "Atsuya Kusakabe",
         color: "#95a5a6",
-        hp: 1200,
+        hp: 1000,
         domain: "NEW SHADOW STYLE",
         moves: { special: "BATTO: NIGHT MOON", ultimate: "PERFECT PARRY" }
     },
     choso: {
         name: "Choso",
         color: "#641e16",
-        hp: 1100,
+        hp: 1000,
         domain: "BLOOD DEPLETION",
         moves: { special: "PIERCING BLOOD", ultimate: "SUPERNOVA" }
     },
@@ -100,7 +100,15 @@ export const CharactersRegistry = {
     junpei: {
         name: "Junpei Yoshino",
         color: "#512e5f",
-        hp: 900,
+        hp: 100,
+        domain: "CRIATURA DAS SOMBRAS",
         moves: { special: "MOON DREGS", ultimate: "POISON STING" }
+    },
+    toji: {
+        name: "Toji Fushiguro",
+        color: "#2c3e50",
+        hp: 1000,
+        domain: "RESTRIÇÃO CELESTIAL",
+        moves: { special: "PLAYFUL CLOUD", ultimate: "INVERTED SPEAR" }
     }
 };
