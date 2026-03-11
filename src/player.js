@@ -203,6 +203,36 @@ export class Player {
             ctx.fillRect(x, y + 35, w, 15); // Gola vermelha
             ctx.fillStyle = '#ff5e57';
             ctx.fillRect(x + 5, y - 8, w - 10, 12);
+        } else if (this.name.includes('Choso')) {
+            ctx.fillRect(x + 5, y, w - 10, 40);
+            ctx.fillStyle = '#4a235a';
+            ctx.fillRect(x - 5, y + 10, w + 10, 15); // Robe
+            ctx.fillStyle = '#000';
+            ctx.fillRect(x + 5, y + 25, w - 10, 3); // Marca no nariz
+        } else if (this.name.includes('Junpei')) {
+            ctx.fillRect(x + 5, y, w - 10, 40);
+            ctx.fillStyle = '#2c3e50';
+            ctx.fillRect(x - 2, y - 5, w + 4, 15); // Cabelo cobrindo olho
+        } else if (this.name.includes('Geto')) {
+            ctx.fillRect(x + 5, y, w - 10, 40);
+            ctx.fillStyle = '#000';
+            ctx.fillRect(x, y - 10, w, 15); // Cabelo
+            ctx.fillStyle = '#f1c40f';
+            ctx.fillRect(x + 5, y + 40, w - 10, 80); // Kesa (Manto budista)
+        } else if (this.name.includes('Nanami')) {
+            ctx.fillStyle = '#f1c40f'; // Terno bege
+            ctx.fillRect(x, y + 40, w, h * 0.4);
+            ctx.fillStyle = '#ffe0bd';
+            ctx.fillRect(x + 5, y, w - 10, 40);
+            ctx.fillStyle = '#333'; // Óculos sem hastes
+            ctx.fillRect(x + 10, y + 18, w - 20, 8);
+        } else if (this.name.includes('Todo')) {
+            ctx.fillStyle = '#ffe0bd'; // Sem camisa
+            ctx.fillRect(x, y + 40, w, h * 0.4);
+            ctx.fillStyle = '#000';
+            ctx.fillRect(x + 5, y, w - 10, 40); // Cabeça
+            ctx.fillStyle = '#555'; // Cicatriz no rosto
+            ctx.fillRect(x + 10, y + 5, 5, 25);
         } else {
             ctx.fillRect(x + 5, y, w - 10, 40);
             ctx.fillStyle = this.color;
@@ -258,7 +288,29 @@ export class Player {
             }
         } else if (this.name.includes('Choso')) {
             ctx.fillStyle = '#641e16';
-            ctx.fillRect(x, y + 75, 500, 15);
+            ctx.fillRect(x, y + 75, 500, 15); // Sangue Per Furante
+            ctx.shadowColor = '#ff0000';
+            ctx.shadowBlur = 20;
+        } else if (this.name.includes('Junpei')) {
+            ctx.fillStyle = '#8e44ad';
+            ctx.beginPath();
+            ctx.arc(x + 100, y + 80, 50, 0, Math.PI * 2);
+            ctx.fill(); // Água-viva Venenosa
+        } else if (this.name.includes('Geto')) {
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.arc(x + 150, y + 80, 80, 0, Math.PI * 2);
+            ctx.fill(); // Uzumaki Spiral
+            ctx.strokeStyle = '#666';
+            ctx.lineWidth = 5;
+            ctx.stroke();
+        } else if (this.name.includes('Nanami')) {
+            ctx.strokeStyle = '#f1c40f';
+            ctx.lineWidth = 10;
+            ctx.strokeRect(x, y + 60, 200, 40); // Ratio Technique
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 20px Arial';
+            ctx.fillText("7:3", x + 80, y + 85);
         } else {
             ctx.fillStyle = this.color;
             ctx.fillRect(x, y + 50, 350, 40);

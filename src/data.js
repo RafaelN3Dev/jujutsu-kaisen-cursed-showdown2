@@ -110,5 +110,12 @@ export const CharactersRegistry = {
         hp: 1000,
         domain: "RESTRIÇÃO CELESTIAL",
         moves: { special: "PLAYFUL CLOUD", ultimate: "INVERTED SPEAR" }
+    },
+    geto: {
+        name: "Geto Suguru",
+        color: "#1e272e",
+        hp: 1000,
+        domain: "WOMB PROFUSION",
+        moves: { special: "UZUMAKI", ultimate: "CURSE MANIPULATION" }
     }
 };
