@@ -117,5 +117,12 @@ export const CharactersRegistry = {
         hp: 1000,
         domain: "WOMB PROFUSION",
         moves: { special: "UZUMAKI", ultimate: "CURSE MANIPULATION" }
+    },
+    dabura: {
+        name: "Dabura Karaba",
+        color: "#fffa65",
+        hp: 1000,
+        domain: "RADIANT HEAVEN",
+        moves: { special: "LIGHT PILLAR", ultimate: "DARKNESS REVERSAL" }
     }
 };

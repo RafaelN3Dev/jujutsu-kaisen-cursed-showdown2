@@ -183,13 +183,15 @@ class Engine {
             if (event.key === '1') this.p1.attack('light');
             if (event.key === '2') this.p1.attack('heavy');
             if (event.key === '3') this.p1.attack('special');
-            if (event.key === '4') this.p1.attack('ultimate');
+            if (event.key === '4') this.p1.attack('special2');
+            if (event.key === '5') this.p1.attack('ultimate');
 
             const key = event.key.toLowerCase();
             if (key === 'u') this.p2.attack('light');
             if (key === 'i') this.p2.attack('heavy');
             if (key === 'o') this.p2.attack('special');
-            if (key === 'p') this.p2.attack('ultimate');
+            if (key === 'p') this.p2.attack('special2');
+            if (event.key === '[') this.p2.attack('ultimate');
         });
 
         window.addEventListener('keyup', (event) => {

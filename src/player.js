@@ -233,6 +233,15 @@ export class Player {
             ctx.fillRect(x + 5, y, w - 10, 40); // Cabeça
             ctx.fillStyle = '#555'; // Cicatriz no rosto
             ctx.fillRect(x + 10, y + 5, 5, 25);
+        } else if (this.name.includes('Dabura')) {
+            ctx.fillStyle = '#fff'; // Manto Simuriano
+            ctx.fillRect(x, y + 35, w, h * 0.6);
+            ctx.fillStyle = '#fffa65'; // Detalhes dourados
+            ctx.fillRect(x, y + 35, w, 10);
+            ctx.fillStyle = '#ffe0bd';
+            ctx.fillRect(x + 5, y, w - 10, 45);
+            ctx.fillStyle = '#fff'; // Cabelo claro
+            ctx.fillRect(x - 2, y - 5, w + 4, 12);
         } else {
             ctx.fillRect(x + 5, y, w - 10, 40);
             ctx.fillStyle = this.color;
@@ -311,6 +320,11 @@ export class Player {
             ctx.fillStyle = '#fff';
             ctx.font = 'bold 20px Arial';
             ctx.fillText("7:3", x + 80, y + 85);
+        } else if (this.name.includes('Dabura')) {
+            ctx.fillStyle = '#fff';
+            ctx.shadowBlur = 40;
+            ctx.shadowColor = '#fffa65';
+            ctx.fillRect(x + (this.facing === 1 ? 50 : 250), y - 200, 40, 1000); // Pilar de Luz
         } else {
             ctx.fillStyle = this.color;
             ctx.fillRect(x, y + 50, 350, 40);
@@ -333,6 +347,26 @@ export class Player {
             ctx.moveTo(200, 360); ctx.lineTo(1080, 360); ctx.stroke();
             ctx.fillStyle = '#ff0000'; ctx.font = '700 30px Outfit';
             ctx.fillText("QUEBRA DE TÉCNICA", 640, 420);
+        } else if (this.name.includes('Dabura')) {
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.arc(640, 360, 300, 0, Math.PI * 2);
+            ctx.fill(); // Darkness Reversal Hole
+            ctx.strokeStyle = '#fffa65';
+            ctx.lineWidth = 10;
+            ctx.stroke();
+            ctx.fillStyle = '#fff';
+            ctx.fillText("REVERSO: ESCURIDÃO", 640, 420);
+        } else if (this.name.includes('Geto')) {
+            ctx.fillStyle = '#000';
+            ctx.font = '40px Outfit';
+            ctx.fillText("LIBERAÇÃO DE MALDIÇÕES", 640, 420);
+            // Draw multiple "curse" circles
+            for (let i = 0; i < 5; i++) {
+                ctx.beginPath();
+                ctx.arc(200 + i * 200, 360 + Math.sin(this.frameCounter * 0.1 + i) * 50, 50, 0, Math.PI * 2);
+                ctx.fill();
+            }
         } else if (this.name.includes('Hakari') && !this.isJackpot) {
             this.isJackpot = true; setTimeout(() => { this.isJackpot = false; }, 15000);
         } else if (this.name.includes('Yuta') && !this.isRikaManifested) {
