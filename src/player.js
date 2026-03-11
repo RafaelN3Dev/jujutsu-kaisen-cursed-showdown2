@@ -62,29 +62,40 @@ export class Player {
         }
 
         if (this.spritesLoaded) {
-            // Lógica de Sprites Reais
-            // Calculamos qual linha usar no sprite sheet baseado no estado
-            let spriteRow = 0; // 0: Idle, 1: Run, 2: Attack
-            if (this.isAttacking) spriteRow = 2;
-            else if (this.velocity.x !== 0) spriteRow = 1;
-
             ctx.translate(this.position.x + this.width / 2, currentY + this.height / 2);
             if (this.facing === -1) ctx.scale(-1, 1);
 
-            const spriteW = this.image.width / 4; // Assumindo 4 frames por linha
-            const spriteH = this.image.height / 4;
+            // Se a imagem for larga, tratamos como Sprite Sheet, se não, como arte única
+            const isSpriteSheet = this.image.width > this.image.height;
 
-            ctx.drawImage(
-                this.image,
-                this.frameCurrent * spriteW,
-                spriteRow * spriteH,
-                spriteW,
-                spriteH,
-                -this.width / 2,
-                -this.height / 2,
-                this.width,
-                this.height
-            );
+            if (isSpriteSheet) {
+                const spriteW = this.image.width / 4;
+                const spriteH = this.image.height / 4;
+                let spriteRow = 0; // 0: Idle, 1: Run, 2: Attack
+                if (this.isAttacking) spriteRow = 2;
+                else if (this.velocity.x !== 0) spriteRow = 1;
+
+                ctx.drawImage(
+                    this.image,
+                    this.frameCurrent * spriteW,
+                    spriteRow * spriteH,
+                    spriteW,
+                    spriteH,
+                    -this.width / 2,
+                    -this.height / 2,
+                    this.width,
+                    this.height
+                );
+            } else {
+                // Desenha a imagem inteira (Arte da Internet)
+                ctx.drawImage(
+                    this.image,
+                    -this.width / 2,
+                    -this.height / 2,
+                    this.width,
+                    this.height
+                );
+            }
         } else {
             // Fallback para desenho vetorial premium se a imagem falhar
             this.drawCharacterDetails(ctx, currentY + breathe);

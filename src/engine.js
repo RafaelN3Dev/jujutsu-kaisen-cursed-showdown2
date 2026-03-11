@@ -142,7 +142,8 @@ class Engine {
             velocity: { x: 0, y: 0 },
             color: char1Data.color,
             name: char1Data.name,
-            domain: char1Data.domain
+            domain: char1Data.domain,
+            spritePath: char1Data.sprite
         });
 
         this.p2 = new Player({
@@ -150,7 +151,8 @@ class Engine {
             velocity: { x: 0, y: 0 },
             color: char2Data.color,
             name: char2Data.name,
-            domain: char2Data.domain
+            domain: char2Data.domain,
+            spritePath: char2Data.sprite
         });
 
         document.getElementById('main-menu').classList.add('hidden');
