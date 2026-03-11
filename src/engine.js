@@ -18,11 +18,11 @@ class Engine {
         this.timeRemaining = 99;
         this.timerInterval = null;
 
-        // Playlist Configuration
+        // Playlist Configuration (Remote URLs for immediate playback)
         this.playlist = [
-            'assets/audio/aizo.mp3',
-            'assets/audio/specialz.mp3',
-            'assets/audio/ao_no_sumika.mp3'
+            'https://archive.org/download/king-gnu-aizo/King%20Gnu%20-%20AIZO.mp3',
+            'https://archive.org/download/jujutsu-kaisen-opening-and-ending-all-seasons/King%20Gnu%20-%20SPECIALZ.mp3',
+            'https://archive.org/download/jujutsu-kaisen-opening-and-ending-all-seasons/Tatsuya%20Kitani%20-%20Ao%20no%20Sumika.mp3'
         ];
         this.bgm = new Audio();
         this.bgm.loop = true;
