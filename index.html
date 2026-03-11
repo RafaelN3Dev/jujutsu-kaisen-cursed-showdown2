@@ -44,8 +44,8 @@
             <!-- Menu Inicial -->
             <div id="main-menu" class="overlay">
                 <h1 class="game-title">JUJUTSU KAISEN<br><span>CURSED SHOWDOWN</span><br><small
-                        style="font-size: 1rem; color: #00ff00; letter-spacing: 2px;">V2.2 - DABURA MODULO &
-                        GETO</small>
+                        style="font-size: 1rem; color: #00ff00; letter-spacing: 2px;">V2.4 - PAUSE & VOLUME
+                        UPDATE</small>
                 </h1>
                 <div class="menu-options">
                     <button id="start-game" class="btn-primary">INICIAR DUELO</button>
@@ -77,6 +77,19 @@
                 <div class="menu-options">
                     <button id="restart-game" class="btn-primary">JOGAR NOVAMENTE</button>
                     <button onclick="location.reload()" class="btn-secondary">MENU PRINCIPAL</button>
+                </div>
+            </div>
+
+            <!-- Pause Menu -->
+            <div id="pause-menu" class="overlay hidden">
+                <h1 class="section-title">PAUSE</h1>
+                <div class="menu-options">
+                    <div class="volume-control">
+                        <label>VOLUME DA MÚSICA</label>
+                        <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5">
+                    </div>
+                    <button id="resume-game" class="btn-primary">CONTINUAR</button>
+                    <button onclick="location.reload()" class="btn-secondary">SAIR</button>
                 </div>
             </div>
         </div>

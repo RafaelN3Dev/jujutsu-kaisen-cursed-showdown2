@@ -14,8 +14,14 @@ class Engine {
         this.background.src = 'assets/stages/jujutsu_high.png';
 
         this.isStarted = false;
+        this.isPaused = false;
         this.timeRemaining = 99;
         this.timerInterval = null;
+
+        // Background Music
+        this.bgm = new Audio('assets/audio/aizo.mp3');
+        this.bgm.loop = true;
+        this.bgm.volume = 0.5;
 
         this.p1 = null;
         this.p2 = null;
@@ -110,6 +116,14 @@ class Engine {
             document.getElementById('game-over').classList.add('hidden');
             this.startGame();
         });
+
+        document.getElementById('resume-game').addEventListener('click', () => {
+            this.togglePause();
+        });
+
+        document.getElementById('volume-slider').addEventListener('input', (e) => {
+            this.bgm.volume = e.target.value;
+        });
     }
 
     startGame() {
@@ -141,6 +155,10 @@ class Engine {
         this.updateHUD();
         this.isStarted = true;
         this.startTimer();
+
+        // Start BGM
+        this.bgm.currentTime = 0;
+        this.bgm.play().catch(e => console.log("Audio play blocked: ", e));
     }
 
     updateHUDNames() {
@@ -172,13 +190,35 @@ class Engine {
         document.getElementById('winner-text').innerText = winner;
         document.getElementById('game-over-reason').innerText = reason;
         gameOverScreen.classList.remove('hidden');
+
+        // Stop BGM or lower volume
+        this.bgm.pause();
+    }
+
+    togglePause() {
+        if (!this.isStarted) return;
+
+        this.isPaused = !this.isPaused;
+        const pauseMenu = document.getElementById('pause-menu');
+
+        if (this.isPaused) {
+            pauseMenu.classList.remove('hidden');
+            this.bgm.volume = this.bgm.volume * 0.3; // Lowers music volume while paused
+        } else {
+            pauseMenu.classList.add('hidden');
+            this.bgm.volume = document.getElementById('volume-slider').value;
+        }
     }
 
     init() {
         window.addEventListener('keydown', (event) => {
             if (this.keys[event.key]) this.keys[event.key].pressed = true;
 
-            if (!this.isStarted) return;
+            if (event.key === 'Escape' || event.key.toLowerCase() === 'm') {
+                this.togglePause();
+            }
+
+            if (!this.isStarted || this.isPaused) return;
 
             if (event.key === '1') this.p1.attack('light');
             if (event.key === '2') this.p1.attack('heavy');
@@ -236,6 +276,8 @@ class Engine {
 
     animate() {
         window.requestAnimationFrame(() => this.animate());
+
+        if (this.isPaused) return;
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.drawBackground();
