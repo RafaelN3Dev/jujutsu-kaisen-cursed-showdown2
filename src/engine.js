@@ -18,8 +18,13 @@ class Engine {
         this.timeRemaining = 99;
         this.timerInterval = null;
 
-        // Background Music
-        this.bgm = new Audio('assets/audio/aizo.mp3');
+        // Playlist Configuration
+        this.playlist = [
+            'assets/audio/aizo.mp3',
+            'assets/audio/specialz.mp3',
+            'assets/audio/ao_no_sumika.mp3'
+        ];
+        this.bgm = new Audio();
         this.bgm.loop = true;
         this.bgm.volume = 0.5;
 
@@ -156,7 +161,9 @@ class Engine {
         this.isStarted = true;
         this.startTimer();
 
-        // Start BGM
+        // Random Playlist Logic
+        const randomTrack = this.playlist[Math.floor(Math.random() * this.playlist.length)];
+        this.bgm.src = randomTrack;
         this.bgm.currentTime = 0;
         this.bgm.play().catch(e => console.log("Audio play blocked: ", e));
     }
