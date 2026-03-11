@@ -4,32 +4,28 @@ export const CharactersRegistry = {
         color: "#00d2ff",
         hp: 1000,
         domain: "VAZIO INFINITO",
-        moves: { special: "LAPSO: BLUE", ultimate: "VOID" },
-        sprite: "https://freebiehive.com/wp-content/uploads/2023/09/Gojo-Satoru-PNG.png"
+        moves: { special: "LAPSO: BLUE", ultimate: "VOID" }
     },
     sukuna: {
         name: "Ryomen Sukuna",
         color: "#f32121",
         hp: 1000,
         domain: "SANTUÁRIO MALÉVOLO",
-        moves: { special: "DISMANTLE", ultimate: "SHRINE" },
-        sprite: "https://freebiehive.com/wp-content/uploads/2023/09/Sukuna-PNG.png"
+        moves: { special: "DISMANTLE", ultimate: "SHRINE" }
     },
     itadori: {
         name: "Itadori Yuji",
         color: "#ff4b2b",
         hp: 1000,
         domain: "BLACK FLASH OVERDRIVE",
-        moves: { special: "DIVERGENT FIST", ultimate: "KOKUSEN" },
-        sprite: "https://freebiehive.com/wp-content/uploads/2023/09/Yuji-Itadori-PNG.png"
+        moves: { special: "DIVERGENT FIST", ultimate: "KOKUSEN" }
     },
     megumi: {
         name: "Megumi Fushiguro",
         color: "#0a3d62",
         hp: 1000,
         domain: "CHIMERA SHADOW GARDEN",
-        moves: { special: "NUÉ STRIKE", ultimate: "MAHORAGA (PARTIAL)" },
-        sprite: "https://freebiehive.com/wp-content/uploads/2023/09/Megumi-Fushiguro-PNG.png"
+        moves: { special: "NUÉ STRIKE", ultimate: "MAHORAGA (PARTIAL)" }
     },
     yuta: {
         name: "Yuta Okkotsu",

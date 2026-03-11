@@ -118,145 +118,75 @@ export class Player {
         const w = this.width;
         const h = this.height;
 
-        // Base - Calças / Corpo Inferior
-        ctx.fillStyle = this.name.includes('Toji') ? '#f0f0f0' : (this.name.includes('Yuta') ? '#e6e6e6' : '#0a0a0f');
-        ctx.fillRect(x, y + h * 0.4, w, h * 0.6);
+        // Base Body
+        ctx.fillStyle = '#0a0a0f'; // Dark baseline
+        ctx.fillRect(x, y + 40, w, h - 40);
 
-        // Tronco / Camisa
-        ctx.fillStyle = this.name.includes('Toji') ? '#1a1a1a' : (this.name.includes('Yuta') ? '#fff' : '#0f0f15');
-        ctx.fillRect(x, y + 35, w, h * 0.4 - 15);
-
-        // Detalhes Específicos de Personagens
-        ctx.fillStyle = '#ffe0bd'; // Pele padrão
-
+        // Character Specifics
         if (this.name.includes('Gojo')) {
-            // Cabeça e Cabelo Branco
-            ctx.fillRect(x + 5, y, w - 10, 45);
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(x - 2, y - 12, w + 4, 18);
-            // Venda/Óculos
-            ctx.fillStyle = '#000';
-            ctx.fillRect(x, y + 18, w, 14);
-            // Efeito de Aura Infinita
-            ctx.strokeStyle = 'rgba(0, 210, 255, 0.3)';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(x - 5, y - 5, w + 10, h + 10);
-        } else if (this.name.includes('Toji')) {
-            // Cabeça
-            ctx.fillStyle = '#ffe0bd';
-            ctx.fillRect(x + 5, y, w - 10, 40);
-            // Cabelo Preto
-            ctx.fillStyle = '#000';
-            ctx.fillRect(x - 2, y - 8, w + 4, 12);
-            // Cicatriz no canto da boca
-            ctx.fillStyle = '#cc8e8e';
-            ctx.fillRect(x + w * 0.6, y + 30, 4, 2);
-
-            // MALDIÇÃO LONGA ROXA (Envolta do corpo)
-            ctx.strokeStyle = '#6a0dad';
-            ctx.lineWidth = 12;
-            ctx.lineCap = 'round';
-            ctx.beginPath();
-            ctx.moveTo(x - 10, y + 40);
-            ctx.bezierCurveTo(x + w + 20, y + 60, x - 20, y + 100, x + w + 10, y + 130);
-            ctx.stroke();
-            // Olhinhos na maldição
+            // White Hair (Detailed)
             ctx.fillStyle = '#fff';
-            ctx.fillRect(x + w * 0.5, y + 55, 4, 4);
-            ctx.fillRect(x + w * 0.2, y + 115, 3, 3);
-
-        } else if (this.name.includes('Sukuna')) {
-            ctx.fillStyle = '#ffd1d1';
-            ctx.fillRect(x + 5, y, w - 10, 45);
-            // Cabelo Rosa Espetado
-            ctx.fillStyle = '#ff79c6';
+            ctx.fillRect(x - 5, y - 10, w + 10, 25);
             ctx.beginPath();
-            ctx.moveTo(x, y + 5);
-            ctx.lineTo(x + w / 2, y - 15);
-            ctx.lineTo(x + w, y + 5);
-            ctx.fill();
-            // Marcas no rosto
-            ctx.fillStyle = '#000';
-            ctx.fillRect(x + 10, y + 25, 10, 2); ctx.fillRect(x + w - 20, y + 25, 10, 2);
-            ctx.fillRect(x + w / 2 - 5, y + 35, 10, 3);
-        } else if (this.name.includes('Megumi')) {
-            ctx.fillRect(x + 5, y, w - 10, 40);
+            ctx.moveTo(x, y + 15); ctx.lineTo(x + w / 2, y - 25); ctx.lineTo(x + w, y + 15); ctx.fill();
+            // Blindfold (Premium)
             ctx.fillStyle = '#111';
-            // Cabelo espetado icônico
-            for (let i = 0; i < 5; i++) {
-                ctx.beginPath();
-                ctx.moveTo(x + (i * 15), y + 5);
-                ctx.lineTo(x + (i * 15) - 5, y - 15);
-                ctx.lineTo(x + (i * 15) + 8, y + 5);
-                ctx.fill();
+            ctx.fillRect(x, y + 20, w, 15);
+            ctx.strokeStyle = '#00d2ff'; ctx.lineWidth = 2; ctx.strokeRect(x, y + 20, w, 15);
+            // Infinity Aura
+            ctx.shadowBlur = 30; ctx.shadowColor = '#00d2ff';
+        } else if (this.name.includes('Sukuna')) {
+            // Pink spiked hair
+            ctx.fillStyle = '#ff79c6';
+            for (let i = 0; i < 3; i++) {
+                ctx.beginPath(); ctx.moveTo(x + i * 25, y + 10); ctx.lineTo(x + 12 + i * 25, y - 20); ctx.lineTo(x + 25 + i * 25, y + 10); ctx.fill();
             }
-        } else if (this.name.includes('Maki')) {
-            ctx.fillRect(x + 5, y, w - 10, 40);
-            ctx.fillStyle = '#004a11';
-            ctx.fillRect(x + w - 15, y - 10, 10, 30); // Rabo de cavalo
-            ctx.fillRect(x, y - 5, w, 15);
-            ctx.fillStyle = '#9b59b6'; // Óculos roxos
-            ctx.fillRect(x + 5, y + 18, w - 10, 6);
-        } else if (this.name.includes('Yuta')) {
-            ctx.fillRect(x + 5, y, w - 10, 40);
-            ctx.fillStyle = '#222';
-            ctx.fillRect(x, y - 5, w, 15);
-            // Bainha da Katana nas costas
-            ctx.fillStyle = '#333';
-            ctx.save();
-            ctx.translate(x + w, y + 40);
-            ctx.rotate(Math.PI / 4);
-            ctx.fillRect(0, 0, 10, 80);
-            ctx.restore();
-        } else if (this.name.includes('Itadori')) {
-            ctx.fillRect(x + 5, y, w - 10, 40);
-            ctx.fillStyle = '#f32121';
-            ctx.fillRect(x, y + 35, w, 15); // Gola vermelha
-            ctx.fillStyle = '#ff5e57';
-            ctx.fillRect(x + 5, y - 8, w - 10, 12);
-        } else if (this.name.includes('Choso')) {
-            ctx.fillRect(x + 5, y, w - 10, 40);
-            ctx.fillStyle = '#4a235a';
-            ctx.fillRect(x - 5, y + 10, w + 10, 15); // Robe
-            ctx.fillStyle = '#000';
-            ctx.fillRect(x + 5, y + 25, w - 10, 3); // Marca no nariz
-        } else if (this.name.includes('Junpei')) {
-            ctx.fillRect(x + 5, y, w - 10, 40);
-            ctx.fillStyle = '#2c3e50';
-            ctx.fillRect(x - 2, y - 5, w + 4, 15); // Cabelo cobrindo olho
+            // Tattoos
+            ctx.fillStyle = '#ffd1d1'; ctx.fillRect(x + 5, y, w - 10, 45); // Face
+            ctx.fillStyle = '#000'; ctx.fillRect(x + 10, y + 25, 15, 2); ctx.fillRect(x + w - 25, y + 25, 15, 2); // Lines
+            // Malicious Aura
+            ctx.shadowBlur = 30; ctx.shadowColor = '#f32121';
+        } else if (this.name.includes('Toji')) {
+            ctx.fillStyle = '#1a1a1a'; ctx.fillRect(x, y + 35, w, h - 35); // Black tight shirt
+            ctx.fillStyle = '#f0f0f0'; ctx.fillRect(x, y + h * 0.6, w, h * 0.4); // White pants
+            ctx.fillStyle = '#ffe0bd'; ctx.fillRect(x + 5, y, w - 10, 40); // Face
+            ctx.fillStyle = '#000'; ctx.fillRect(x - 2, y - 8, w + 4, 12); // Hair
+            // Inverted Spear silhouette on back
+            ctx.fillStyle = '#999'; ctx.fillRect(x + w - 5, y + 50, 5, 80);
         } else if (this.name.includes('Geto')) {
-            ctx.fillRect(x + 5, y, w - 10, 40);
-            ctx.fillStyle = '#000';
-            ctx.fillRect(x, y - 10, w, 15); // Cabelo
-            ctx.fillStyle = '#f1c40f';
-            ctx.fillRect(x + 5, y + 40, w - 10, 80); // Kesa (Manto budista)
-        } else if (this.name.includes('Nanami')) {
-            ctx.fillStyle = '#f1c40f'; // Terno bege
-            ctx.fillRect(x, y + 40, w, h * 0.4);
-            ctx.fillStyle = '#ffe0bd';
-            ctx.fillRect(x + 5, y, w - 10, 40);
-            ctx.fillStyle = '#333'; // Óculos sem hastes
-            ctx.fillRect(x + 10, y + 18, w - 20, 8);
-        } else if (this.name.includes('Todo')) {
-            ctx.fillStyle = '#ffe0bd'; // Sem camisa
-            ctx.fillRect(x, y + 40, w, h * 0.4);
-            ctx.fillStyle = '#000';
-            ctx.fillRect(x + 5, y, w - 10, 40); // Cabeça
-            ctx.fillStyle = '#555'; // Cicatriz no rosto
-            ctx.fillRect(x + 10, y + 5, 5, 25);
+            ctx.fillStyle = '#000'; ctx.fillRect(x, y - 5, w, 15); // Hair bun
+            ctx.fillStyle = '#ffe0bd'; ctx.fillRect(x + 5, y, w - 10, 45); // Face
+            ctx.fillStyle = '#f1c40f'; ctx.fillRect(x, y + 45, w, h - 45); // Yellow monk robe
+            ctx.fillStyle = '#000'; ctx.fillRect(x + w / 2 - 5, y + 45, 10, h - 45); // Black stripe
         } else if (this.name.includes('Dabura')) {
-            ctx.fillStyle = '#fff'; // Manto Simuriano
-            ctx.fillRect(x, y + 35, w, h * 0.6);
-            ctx.fillStyle = '#fffa65'; // Detalhes dourados
-            ctx.fillRect(x, y + 35, w, 10);
-            ctx.fillStyle = '#ffe0bd';
-            ctx.fillRect(x + 5, y, w - 10, 45);
-            ctx.fillStyle = '#fff'; // Cabelo claro
-            ctx.fillRect(x - 2, y - 5, w + 4, 12);
+            ctx.fillStyle = '#fff'; ctx.fillRect(x, y + 35, w, h - 35); // White robe
+            ctx.fillStyle = '#fffa65'; ctx.fillRect(x, y + 35, w, 10); // Gold collar
+            ctx.fillStyle = '#ffe0bd'; ctx.fillRect(x + 5, y, w - 10, 45); // Face
+            ctx.fillStyle = '#fff'; ctx.fillRect(x - 5, y - 10, w + 10, 15); // Long white hair
+            ctx.shadowBlur = 20; ctx.shadowColor = '#fffa65';
+        } else if (this.name.includes('Itadori')) {
+            ctx.fillStyle = '#0a0a20'; ctx.fillRect(x, y + 40, w, h - 40);
+            ctx.fillStyle = '#f32121'; ctx.fillRect(x, y + 35, w, 15); // Red hoodie collar
+            ctx.fillStyle = '#ff5e57'; ctx.fillRect(x + 5, y - 5, w - 10, 15); // Spiky pinkish hair
+        } else if (this.name.includes('Megumi')) {
+            ctx.fillStyle = '#0a0a0f'; ctx.fillRect(x, y + 40, w, h - 40);
+            ctx.fillStyle = '#000';
+            for (let i = 0; i < 4; i++) {
+                ctx.beginPath(); ctx.moveTo(x + i * 20, y + 5); ctx.lineTo(x + i * 20 - 10, y - 20); ctx.lineTo(x + i * 20 + 15, y + 5); ctx.fill();
+            }
+        } else if (this.name.includes('Nanami')) {
+            ctx.fillStyle = '#f1c40f'; ctx.fillRect(x, y + 40, w, h - 40); // Beige suit
+            ctx.fillStyle = '#fff'; ctx.fillRect(x + w / 2 - 10, y + 40, 20, 30); // White shirt
+            ctx.fillStyle = '#333'; ctx.fillRect(x + 10, y + 18, w - 20, 8); // Goggles
+        } else if (this.name.includes('Todo')) {
+            ctx.fillStyle = '#ffe0bd'; ctx.fillRect(x, y + 40, w, h - 40); // Topless
+            ctx.fillStyle = '#000'; ctx.fillRect(x + 5, y - 8, w - 10, 15); // Hair
+            ctx.fillStyle = '#555'; ctx.fillRect(x + 15, y + 5, 4, 30); // Scar
+        } else if (this.name.includes('Maki')) {
+            ctx.fillStyle = '#004a11'; ctx.fillRect(x + w - 5, y - 5, 10, 30); // Ponytail
+            ctx.fillStyle = '#9b59b6'; ctx.fillRect(x + 5, y + 18, w - 10, 6); // Purple glasses
         } else {
-            ctx.fillRect(x + 5, y, w - 10, 40);
-            ctx.fillStyle = this.color;
-            ctx.fillRect(x, y - 8, w, 12);
+            ctx.fillStyle = this.color; ctx.fillRect(x, y - 10, w, 20); // Fallback hair/head
         }
     }
 

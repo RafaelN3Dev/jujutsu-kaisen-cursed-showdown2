@@ -18,11 +18,11 @@ class Engine {
         this.timeRemaining = 99;
         this.timerInterval = null;
 
-        // Playlist Configuration (Remote URLs for immediate playback)
+        // Playlist Configuration (Local paths with remote URLs as fallback)
         this.playlist = [
-            'https://archive.org/download/king-gnu-aizo/King%20Gnu%20-%20AIZO.mp3',
-            'https://archive.org/download/jujutsu-kaisen-opening-and-ending-all-seasons/King%20Gnu%20-%20SPECIALZ.mp3',
-            'https://archive.org/download/jujutsu-kaisen-opening-and-ending-all-seasons/Tatsuya%20Kitani%20-%20Ao%20no%20Sumika.mp3'
+            ['assets/audio/King Gnu - AIZO.mp3', 'https://archive.org/download/king-gnu-aizo/King%20Gnu%20-%20AIZO.mp3'],
+            ['assets/audio/King Gnu - SPECIALZ.mp3', 'https://archive.org/download/jujutsu-kaisen-opening-and-ending-all-seasons/King%20Gnu%20-%20SPECIALZ.mp3'],
+            ['assets/audio/Tatsuya Kitani - Ao no Sumika.mp3', 'https://archive.org/download/jujutsu-kaisen-opening-and-ending-all-seasons/Tatsuya%20Kitani%20-%20Ao%20no%20Sumika.mp3']
         ];
         this.bgm = new Audio();
         this.bgm.loop = true;
@@ -163,11 +163,22 @@ class Engine {
         this.isStarted = true;
         this.startTimer();
 
-        // Random Playlist Logic
-        const randomTrack = this.playlist[Math.floor(Math.random() * this.playlist.length)];
-        this.bgm.src = randomTrack;
+        // Random Playlist Logic (Retry with fallback)
+        const trackPair = this.playlist[Math.floor(Math.random() * this.playlist.length)];
+        const localPath = trackPair[0];
+        const remoteUrl = trackPair[1];
+
+        this.bgm.src = localPath;
         this.bgm.currentTime = 0;
-        this.bgm.play().catch(e => console.log("Audio play blocked: ", e));
+        const playPromise = this.bgm.play();
+
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {
+                console.log("Local file failed, trying remote fallback...");
+                this.bgm.src = remoteUrl;
+                this.bgm.play().catch(e => console.log("All audio failed: ", e));
+            });
+        }
     }
 
     updateHUDNames() {
@@ -221,30 +232,40 @@ class Engine {
 
     init() {
         window.addEventListener('keydown', (event) => {
-            if (this.keys[event.key]) this.keys[event.key].pressed = true;
+            const key = event.key.toLowerCase();
 
-            if (event.key === 'Escape' || event.key.toLowerCase() === 'm') {
+            if (this.keys[event.key]) this.keys[event.key].pressed = true;
+            // WASD Mapping
+            if (key === 'w') this.keys.w.pressed = true;
+            if (key === 'a') this.keys.a.pressed = true;
+            if (key === 'd') this.keys.d.pressed = true;
+
+            if (event.key === 'Escape' || key === 'm') {
                 this.togglePause();
             }
 
             if (!this.isStarted || this.isPaused) return;
 
+            // Player 1 Attacks (1, 2, 3, 4)
             if (event.key === '1') this.p1.attack('light');
             if (event.key === '2') this.p1.attack('heavy');
             if (event.key === '3') this.p1.attack('special');
-            if (event.key === '4') this.p1.attack('special2');
-            if (event.key === '5') this.p1.attack('ultimate');
+            if (event.key === '4') this.p1.attack('ultimate');
 
-            const key = event.key.toLowerCase();
+            // Player 2 Attacks (U, I, O, P)
             if (key === 'u') this.p2.attack('light');
             if (key === 'i') this.p2.attack('heavy');
             if (key === 'o') this.p2.attack('special');
-            if (key === 'p') this.p2.attack('special2');
-            if (event.key === '[') this.p2.attack('ultimate');
+            if (key === 'p') this.p2.attack('ultimate');
         });
 
         window.addEventListener('keyup', (event) => {
+            const key = event.key.toLowerCase();
             if (this.keys[event.key]) this.keys[event.key].pressed = false;
+            // WASD Unmapping
+            if (key === 'w') this.keys.w.pressed = false;
+            if (key === 'a') this.keys.a.pressed = false;
+            if (key === 'd') this.keys.d.pressed = false;
         });
     }
 
